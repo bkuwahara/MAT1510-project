@@ -6,6 +6,8 @@ from tqdm import tqdm
 import os
 import configparser
 
+os.chdir("/w/339/bkuwahara/mat1510/MAT1510-project")
+
 config = configparser.ConfigParser()
 config.read('config.ini')
 LLAMA_DIRECTORY = config['LLaMA']['weights_directory']
@@ -24,12 +26,12 @@ class Hook:
 def load_llama(model_size, device):
     llama_path = os.path.join(LLAMA_DIRECTORY, config['LLaMA'][f'{model_size}_subdir'])
     tokenizer = LlamaTokenizer.from_pretrained(llama_path)
-    model = LlamaForCausalLM.from_pretrained(llama_path)
+    model = LlamaForCausalLM.from_pretrained(llama_path, device_map="auto", offload_folder="offload")
     # set tokenizer to use bos token
     tokenizer.bos_token = '<s>'
-    if model_size == '13B' and device != 'cpu':
-        model = model.half()
-    model.to(device)
+    #if model_size == '13B' and device != 'cpu':
+     #   model = model.half()
+    #model.to(device)
     return tokenizer, model
 
 def load_statements(dataset_name):
