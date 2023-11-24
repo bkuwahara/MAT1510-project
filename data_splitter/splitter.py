@@ -34,11 +34,15 @@ def parse_csv(file_path):
 
     return parsed_data
 
-with open("moral_csv.csv", 'w') as file:
-    # File path
-    fp = './moral_scenarios_test.csv'
-    p_data = parse_csv(fp)
+p_data = parse_csv('./moral_scenarios_test.csv')
 
-    file.write("statement" + "," + "label" + "\n")
+with open("moral_csv.csv", 'w', newline='') as file:
+    writer = csv.writer(file)
+
+    # Write the header
+    writer.writerow(["statement", "label"])
+
+    # Write the data
     for i in p_data:
-        file.write(i["prompt"] + "," + str(1 if i["answer"] == "Not wrong" else 0) + "\n")
+        label = 1 if i["answer"] == "Not wrong" else 0
+        writer.writerow([i["prompt"], label])
