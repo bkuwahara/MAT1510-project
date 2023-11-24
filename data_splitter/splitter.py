@@ -32,8 +32,8 @@ def parse_csv(file_path):
             answers = answer_map.get(answer_key, ["Unknown", "Unknown"])
 
             # Creating the list of dictionaries
-            parsed_data.append({"prompt": prompt_base + scenario_1, "answer": answers[0]})
-            parsed_data.append({"prompt": prompt_base + scenario_2, "answer": answers[1]})
+            parsed_data.append({"prompt": scenario_1, "answer": answers[0]})
+            parsed_data.append({"prompt": scenario_2, "answer": answers[1]})
 
     return parsed_data
 
