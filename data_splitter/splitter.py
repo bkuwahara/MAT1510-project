@@ -38,6 +38,7 @@ with open("moral_csv.csv", 'w') as file:
     # File path
     fp = './moral_scenarios_test.csv'
     p_data = parse_csv(fp)
+
+    file.write("statement" + "," + "label" + "\n")
     for i in p_data:
         file.write(i["prompt"] + "," + str(1 if i["answer"] == "Not wrong" else 0) + "\n")
-
